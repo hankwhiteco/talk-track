@@ -54,11 +54,6 @@ body.L-over .side{transform:scale(.86)}
 #slotP{transform-origin:100% 50%} #slotN{transform-origin:0 50%}
 body.L-over #track.to-next #slotN,body.L-over #track.to-prev #slotP{transform:scale(1)}
 body.L-over #track.to-next #frame,body.L-over #track.to-prev #frame{transform:scale(.86)}
-.chev{position:absolute;top:50%;width:44px;height:44px;transform:translate(-50%,-50%);background:none;border:0;cursor:pointer;color:var(--text);display:grid;place-items:center;padding:0}
-.chev svg{width:16px;height:30px;stroke:currentColor;fill:none;stroke-width:1.6}
-#chevL{left:calc(50% - var(--fw) / 2 - var(--gap) / 2)}
-#chevR{left:calc(50% + var(--fw) / 2 + var(--gap) / 2)}
-body.L-column .chev{display:none}
 
 /* the frame */
 #frame{background:var(--stage);overflow:hidden;color:#fff;touch-action:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
@@ -144,7 +139,28 @@ body.L-column #fbot{display:flex;position:absolute;z-index:5;left:22%;right:1.6%
 body.L-column #paused{top:auto;bottom:-5.6%;right:auto;left:1%;color:var(--grey)}
 
 /* cursor label (desktop) */
-#cur{position:absolute;z-index:7;pointer-events:none;font-size:11px;background:#fff;color:#000;padding:4px 7px;transform:translate(14px,14px);white-space:nowrap}
+#cur{position:absolute;z-index:7;pointer-events:none;font:500 10px/1 var(--f-mono);letter-spacing:.06em;color:#fff;mix-blend-mode:difference;transform:translate(15px,9px);white-space:nowrap}
+@media (hover:hover) and (pointer:fine){
+  #frame[data-zone=prev] #work{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17 12H7M11 8l-4 4 4 4' stroke='black' stroke-opacity='.75' stroke-width='3.4'/%3E%3Cpath d='M17 12H7M11 8l-4 4 4 4' stroke='white' stroke-width='1.3'/%3E%3C/svg%3E") 12 12,w-resize}
+  #frame[data-zone=next] #work{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 12h10M13 8l4 4-4 4' stroke='black' stroke-opacity='.75' stroke-width='3.4'/%3E%3Cpath d='M7 12h10M13 8l4 4-4 4' stroke='white' stroke-width='1.3'/%3E%3C/svg%3E") 12 12,e-resize}
+  #frame[data-zone=pause] #work{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9.5 7.5v9M14.5 7.5v9' stroke='black' stroke-opacity='.75' stroke-width='3.4'/%3E%3Cpath d='M9.5 7.5v9M14.5 7.5v9' stroke='white' stroke-width='1.3'/%3E%3C/svg%3E") 12 12,pointer}
+  #frame[data-zone=play] #work{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9.5 7.5l7 4.5-7 4.5z' stroke='black' stroke-opacity='.75' stroke-width='3.4'/%3E%3Cpath d='M9.5 7.5l7 4.5-7 4.5z' stroke='white' stroke-width='1.3'/%3E%3C/svg%3E") 12 12,pointer}
+  #slotP{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 7.5v9M18 12H8.5M12.5 8l-4 4 4 4' stroke='black' stroke-opacity='.75' stroke-width='3.4'/%3E%3Cpath d='M5.5 7.5v9M18 12H8.5M12.5 8l-4 4 4 4' stroke='white' stroke-width='1.3'/%3E%3C/svg%3E") 12 12,w-resize} #slotN{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18.5 7.5v9M6 12h9.5M11.5 8l4 4-4 4' stroke='black' stroke-opacity='.75' stroke-width='3.4'/%3E%3Cpath d='M18.5 7.5v9M6 12h9.5M11.5 8l4 4-4 4' stroke='white' stroke-width='1.3'/%3E%3C/svg%3E") 12 12,e-resize}
+}
+@media not ((hover:hover) and (pointer:fine)){#cur{display:none}}
+#flash{position:absolute;z-index:13;left:50%;top:50%;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:rgba(0,0,0,.45);display:grid;place-items:center;pointer-events:none;opacity:0}
+#flash svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+#flash.on{animation:flash .6s ease-out}
+@keyframes flash{0%{opacity:0;transform:scale(.88)}20%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(1.06)}}
+#zones{position:absolute;z-index:9;inset:0;display:grid;grid-template-columns:30% 40% 30%;pointer-events:none;transition:opacity .6s}
+#zones span{display:grid;place-items:center;font-size:22px;color:rgba(255,255,255,.55);text-shadow:0 1px 3px rgba(0,0,0,.6)}
+#zones span+span{border-left:1px dashed rgba(255,255,255,.22)}
+#zones.out{opacity:0}
+.pausedtag{display:none;color:var(--mute);margin-left:18px}
+body.is-paused .pausedtag{display:inline}
+#fcol .pausedtag{margin:.8em 0 0;font-size:.78em;color:var(--grey)}
+body.is-paused #fcol .pausedtag{display:block}
+#mtop .pausedtag{margin:0;color:inherit}
 
 /* bumper between projects */
 #bump{position:absolute;z-index:10;inset:0;display:grid;place-items:center;background:rgba(0,0,0,.55);padding:16px}
@@ -273,7 +289,7 @@ body.L-column #backtalk,body.L-column #continue{left:61%}
   :root,body.L-over{--fw:100vw;--gap:12px}
   body{overflow:hidden;height:100%}
   #player{position:fixed;inset:0;padding:0;gap:0;min-height:0;background:#000}
-  #phead,#pfoot,.chev,#fcol,#fbot,#nametag,#cur,#paused,.chevin{display:none!important}
+  #phead,#pfoot,#fcol,#fbot,#nametag,#cur,#paused,.chevin{display:none!important}
   #car{height:100%}
   #track{left:calc(-100vw - var(--gap))}
   body.L-over .side,body.L-over #track.to-next #slotN,body.L-over #track.to-prev #slotP,body.L-over #track.to-next #frame,body.L-over #track.to-prev #frame{transform:none}
@@ -320,7 +336,7 @@ body.L-column #backtalk,body.L-column #continue{left:61%}
 <body>
 <div id="app">
   <section id="player" aria-label="Projects">
-    <div id="phead"><span id="h-num"></span><span id="h-title"></span><span class="sp"></span><button id="h-sound" class="tbtn" data-ui>Sound on</button></div>
+    <div id="phead"><span id="h-num"></span><span id="h-title"></span><span class="pausedtag">Paused</span><span class="sp"></span><button id="h-sound" class="tbtn" data-ui>Sound on</button></div>
     <div id="car">
       <div id="track">
         <div class="slot side" id="slotP" data-ui-peek="-1"><div class="pk"></div></div>
@@ -330,7 +346,7 @@ body.L-column #backtalk,body.L-column #continue{left:61%}
             <button id="chevIn" class="chevin" data-ui aria-label="Next beat"><svg viewBox="0 0 18 36"><path d="M2 2l14 16L2 34"/></svg></button>
           </div>
           <div id="segs" class="chrome"></div>
-          <div id="fcol"><span id="c-num"></span><span id="c-title"></span><div id="ccaps" aria-live="off"></div></div>
+          <div id="fcol"><span id="c-num"></span><span id="c-title"></span><span class="pausedtag">Paused</span><div id="ccaps" aria-live="off"></div></div>
           <div id="talker" class="paused chrome" aria-hidden="true">
             <svg id="ghost" viewBox="0 0 300 480" preserveAspectRatio="xMidYMax meet">
               <g class="body" fill="rgba(16,16,16,.6)" stroke="#ece7df" stroke-width="1.2" stroke-dasharray="5 4" opacity=".6">
@@ -346,9 +362,8 @@ body.L-column #backtalk,body.L-column #continue{left:61%}
           <span id="nametag" class="chrome"></span>
           <div id="caps" class="chrome word" aria-hidden="true"></div>
           <div id="fbot"><button id="b-index" class="tbtn" data-ui>Index</button><span class="sp"></span><button id="b-prev" class="tbtn" data-ui>Previous Project</button><button id="b-next" class="tbtn" data-ui>Next Project</button></div>
-          <span id="paused" hidden>Paused &middot; space to play</span>
           <div id="mtop" class="chrome">
-            <div class="ttl"><span id="mt-num"></span><b id="mt-title"></b></div>
+            <div class="ttl"><span><span id="mt-num"></span> <span class="pausedtag">&middot; Paused</span></span><b id="mt-title"></b></div>
             <span class="sp"></span>
             <button id="msound" class="chip" data-ui><svg viewBox="0 0 16 16"><path d="M2 6h3l4-3v10l-4-3H2z"/><path id="msound-x" d="M11 5l4 6M15 5l-4 6" stroke="currentColor" stroke-width="1.6" fill="none"/></svg><span id="msound-l">tap for sound</span></button>
             <button id="mindex" class="tbtn" data-ui>Index</button>
@@ -361,14 +376,8 @@ body.L-column #backtalk,body.L-column #continue{left:61%}
               <div class="acts"><button class="btn solid" id="bump-go"></button><button class="btn" id="bump-replay">Watch again</button><button class="btn" id="bump-index">Index</button></div>
             </div>
           </div>
-          <div id="hints" class="chrome" hidden>
-            <div class="h-back">&lsaquo; tap left: back</div>
-            <div class="h-next">tap right: next &rsaquo;</div>
-            <div class="h-hold">hold to pause</div>
-            <div class="h-swipe">swipe sideways: next project</div>
-            <div class="h-down">swipe down: index</div>
-            <div class="h-click">click the right side to skip ahead</div>
-          </div>
+          <div id="zones" class="chrome" hidden aria-hidden="true"><span>&larr;</span><span>&#8214;</span><span>&rarr;</span></div>
+          <div id="flash" aria-hidden="true"></div>
           <button id="resume" class="chip chrome" data-ui hidden>talk me through this</button>
           <button id="resync" class="chip chrome" data-ui hidden>back to voice</button>
           <div id="holdlbl" hidden>paused</div>
@@ -379,8 +388,6 @@ body.L-column #backtalk,body.L-column #continue{left:61%}
         </div>
         <div class="slot side" id="slotN"><div class="pk"></div></div>
       </div>
-      <button id="chevL" class="chev" data-ui aria-label="Previous project"><svg viewBox="0 0 16 30"><path d="M14 1L2 15l12 14"/></svg></button>
-      <button id="chevR" class="chev" data-ui aria-label="Next project"><svg viewBox="0 0 16 30"><path d="M2 1l12 14L2 29"/></svg></button>
     </div>
     <div id="pfoot"><button id="f-prev" class="tbtn" data-ui>Previous Project</button><button id="f-index" class="tbtn" data-ui>index</button><button id="f-next" class="tbtn" data-ui>Next Project</button></div>
   </section>
@@ -399,9 +406,9 @@ body.L-column #backtalk,body.L-column #continue{left:61%}
       <div class="vrow"><span class="lbl">captions</span><div class="segctl" data-var="caps"><button data-v="word">word</button><button data-v="line">line</button><button data-v="chunk">chunk</button></div></div>
       <div class="vrow"><span class="lbl">advance</span><div class="segctl" data-var="adv"><button data-v="auto">auto</button><button data-v="off">manual</button></div></div>
       <div class="vrow"><span class="lbl">live</span><div class="segctl" data-var="live"><button data-v="manual">hand back manually</button><button data-v="auto">auto after 15 s</button></div></div>
-      <div class="vrow"><span class="lbl">layout</span><div class="segctl" data-var="layout"><button data-v="column">column</button><button data-v="over">over</button></div></div>
+      <div class="vrow"><span class="lbl">layout</span><div class="segctl" data-var="layout"><button data-v="over">over</button><button data-v="column">column</button></div></div>
       <p>Tester link for this variant: <code id="varlink"></code></p>
-      <p>Presets: <code>#A</code> (defaults: column) and <code>#B</code> (keep talking, slower, chunk captions, manual). Layout: <code>#column</code> or <code>#over</code>. Combine with dots, e.g. <code>#over.skip-keep</code>. Add <code>.debug</code> to show gestures.</p>
+      <p>Presets: <code>#A</code> (defaults: over) and <code>#B</code> (keep talking, slower, chunk captions, manual). Layout: <code>#over</code> (default) or <code>#column</code>. Combine with dots, e.g. <code>#over.skip-keep</code>. Add <code>.debug</code> to show gestures.</p>
     </section>
     <section>
       <h3>test runs</h3>
@@ -902,7 +909,7 @@ function readTokens() {
   try { new URLSearchParams(location.search).forEach((v, k) => { TOK.add(k.toLowerCase()); if (v) TOK.add((k + '-' + v).toLowerCase()); }); } catch (e) {}
 }
 readTokens();
-const VAR_DEF = { layout: 'column', skip: 'cut', pace: 'normal', caps: 'word', adv: 'auto', live: 'manual' };
+const VAR_DEF = { layout: 'over', skip: 'cut', pace: 'normal', caps: 'word', adv: 'auto', live: 'manual' };
 const VAR_OPTS = { layout: ['column', 'over'], skip: ['cut', 'keep', 'browse'], pace: ['normal', 'slow'], caps: ['word', 'line', 'chunk'], adv: ['auto', 'off'], live: ['manual', 'auto'] };
 const PRESET_B = { skip: 'keep', pace: 'slow', caps: 'chunk', adv: 'off' };
 function variantFromTokens() {
@@ -1248,7 +1255,8 @@ function step(dt) {
   $('#resume').hidden = !V.browsing;
   if (V.browsing && V.resumeAt && performance.now() >= V.resumeAt) resumeFromBrowse();
   $('#resync').hidden = !V.workOffset;
-  $('#paused').hidden = clock.playing || V.ended || V.browsing || V.holding || V.sliding || !!V.turn || !!V.hold;
+  document.body.classList.toggle('is-paused', !clock.playing && !V.ended && !V.browsing && !V.holding && !V.sliding && !V.turn && !V.hold && !V.ioPaused);
+  if (FR.dataset.zone === 'pause' || FR.dataset.zone === 'play') { const z = clock.playing && !V.hold ? 'pause' : 'play'; if (FR.dataset.zone !== z) { FR.dataset.zone = z; $('#cur').textContent = z; } }
   if (V.idle && TALK && !IDLEM && tv.currentTime > idleFrom() + S.idleLen) tv.currentTime = idleFrom();
   if (V.bumpAt) {
     const left = V.bumpAt - performance.now();
@@ -1345,7 +1353,7 @@ $('#bump-go').onclick = () => goReel(SITE.i + 1, 'bumper');
 $('#bump-replay').onclick = () => { hideBump(); logEv('replay', SITE.i); jumpTo(0, false); clock.play(); };
 $('#bump-index').onclick = () => openIndex('bumper');
 const prevP = via => goReel(SITE.i - 1, via), nextP = via => goReel(SITE.i + 1, via);
-[['#f-prev', -1], ['#b-prev', -1], ['#chevL', -1], ['#f-next', 1], ['#b-next', 1], ['#chevR', 1]].forEach(([s, d]) => { $(s).onclick = () => (d < 0 ? prevP : nextP)(s.slice(1)); });
+[['#f-prev', -1], ['#b-prev', -1], ['#f-next', 1], ['#b-next', 1]].forEach(([s, d]) => { $(s).onclick = () => (d < 0 ? prevP : nextP)(s.slice(1)); });
 ['#slotP', '#slotN'].forEach(s => { $(s).addEventListener('click', () => { const r = $(s).dataset.reel; if (r !== '') goReel(+r, 'peek'); }); });
 $('#chevIn').onclick = () => act(1, 'chevron');
 $('#segs').addEventListener('click', e => { const d = e.target.closest('[data-b]'); if (!d) return; e.stopPropagation(); const b = +d.dataset.b; logEv('seg', b); leaveLive(); clearOffset(); jumpTo(P.beats[b].t); setPlaying(true, 'seg'); });
@@ -1464,6 +1472,17 @@ function firstGesture() { if (V.gestured) return; V.gestured = true; if (soundPr
 
 /* ---------- play / pause ---------- */
 function setPlaying(play, via) { if (play === clock.playing) return; if (play) { if (V.ended) return; clock.play(); } else clock.pause(); logEv(play ? 'play' : 'pause', via); }
+const GLYPH = { pause: '<svg viewBox="0 0 24 24"><path d="M9.5 7.5v9M14.5 7.5v9"/></svg>', play: '<svg viewBox="0 0 24 24"><path d="M9.5 7.5l7 4.5-7 4.5z"/></svg>' };
+function flashGlyph(k) { const f = $('#flash'); f.innerHTML = GLYPH[k]; f.classList.remove('on'); void f.offsetWidth; f.classList.add('on'); }
+function centreToggle(via) {
+  firstGesture(); hideZones();
+  if (V.hold) { flashGlyph('play'); logEv('center-play', via); return continueTalk('center'); }
+  if (V.browsing) { flashGlyph('play'); logEv('center-play', via); return resumeFromBrowse(); }
+  if (V.ended) return act(1, via);
+  const play = !clock.playing;
+  if (play) clock.play(); else clock.pause();
+  flashGlyph(play ? 'play' : 'pause'); logEv(play ? 'center-play' : 'center-pause', via + ':' + SITE.i + ':' + beatAt(V.workT));
+}
 function togglePlay(via) { if (V.turn) return; if (V.hold) return continueTalk(via); if (V.browsing) return resumeFromBrowse(); if (V.ended) { if (SITE.reels[SITE.i + 1]) goReel(SITE.i + 1, via); return; } setPlaying(!clock.playing, via); }
 
 /* ---------- skipping: the behaviours under test ---------- */
@@ -1529,17 +1548,15 @@ function resumeFromBrowse() {
 }
 $('#resume').onclick = resumeFromBrowse; $('#resync').onclick = clearOffset;
 
-/* ---------- first-run hints ---------- */
-const HINTS = store.get('tw.hints2', {});
+/* ---------- first run: the cursor is the hint on desktop; phones get faint zone marks once ---------- */
+function usedHint() {}
+function hideZones() { const z = $('#zones'); if (!z.hidden && !z.classList.contains('out')) { z.classList.add('out'); setTimeout(() => { z.hidden = true; }, 650); } }
 function showHints() {
-  const coarse = matchMedia('(pointer: coarse)').matches || isPhone(), want = coarse ? ['back', 'next', 'hold', 'swipe', 'down'] : ['click'];
-  let any = false;
-  [...$('#hints').children].forEach(el => { const k = el.className.split(' ')[0].slice(2); el.hidden = !want.includes(k) || !!HINTS[k]; if (!el.hidden) any = true; });
-  if (!any) return;
-  $('#hints').hidden = false;
-  setTimeout(() => [...$('#hints').children].forEach(el => el.classList.add('used')), 16000);
+  const coarse = matchMedia('(pointer: coarse)').matches || isPhone();
+  if (!coarse || store.get('tw.zones', 0)) return;
+  store.set('tw.zones', 1);
+  const z = $('#zones'); z.classList.remove('out'); z.hidden = false; setTimeout(hideZones, 2000);
 }
-function usedHint(k) { if (HINTS[k]) return; HINTS[k] = 1; store.set('tw.hints2', HINTS); const el = $('#hints .h-' + k); if (el) el.classList.add('used'); }
 
 /* ---------- toast ---------- */
 let toastTimer = 0;
@@ -1729,7 +1746,6 @@ function triggerHold(c) {
   if (LIVE.wrap) LIVE.wrap.classList.add('holding');
   $('#continue').hidden = false;
   dbg('hold cue \u2192 waiting'); dbgLive();
-  if (LIVE.wrap && !isPhone() && !matchMedia('(pointer: coarse)').matches) engage('hold');
 }
 function clearHold(via) {
   if (!V.hold) return;
@@ -1838,10 +1854,10 @@ function pointerEnd(e) {
   const mode = G.mode; G.mode = null;
   const dx = e.clientX - G.x0, dy = e.clientY - G.y0, r = workRect(), fx = (G.x0 - r.left) / r.width;
   if (e.type === 'pointercancel') { if (mode === 'hold') endHold(); if (mode === 'hdrag') settleCarousel(0, 0, 'cancel'); dbg('pointercancel (' + mode + ')'); return; }
-  if (mode === 'press' && V.hold && inLive(G.x0, G.y0)) { dbg('tap on the piece during a hold \u2192 your turn'); engage('hold'); return; }
   if (mode === 'press') {
     if (fx < 0 || fx > 1 || (G.y0 - r.top) / r.height < 0) { dbg('tap outside the work'); return; }
-    const dir = fx < 1 / 3 ? -1 : 1; dbg(`tap ${dir < 0 ? 'left third' : fx < 2 / 3 ? 'middle third' : 'right third'} (x ${fx.toFixed(2)}) \u2192 ${dir < 0 ? 'back' : 'next'}`); act(dir, 'tap'); return;
+    if (fx >= .3 && fx <= .7) { dbg(`tap centre (x ${fx.toFixed(2)}) \u2192 ${clock.playing ? 'pause' : 'play'}`); centreToggle('tap'); return; }
+    const dir = fx < .3 ? -1 : 1; dbg(`tap ${dir < 0 ? 'left' : 'right'} (x ${fx.toFixed(2)}) \u2192 ${dir < 0 ? 'back' : 'next'}`); act(dir, 'tap'); return;
   }
   if (mode === 'hold') return endHold();
   if (mode === 'hdrag') {
@@ -1869,24 +1885,25 @@ IX.addEventListener('touchend', e => {
 }, { passive: true });
 
 /* ---------- mouse ---------- */
+/* the cursor is the hint: a thin glyph per zone (CSS), plus a tiny label */
+const zoneAt = fx => fx < .3 ? 'prev' : fx > .7 ? 'next' : (clock.playing && !V.hold ? 'pause' : 'play');
 function mouseMove(e) {
   const cur = $('#cur');
-  if (isUI(e.target) || V.sliding || V.turn) { cur.hidden = true; FR.style.cursor = ''; return; }
-  if (inLive(e.clientX, e.clientY)) { const fr0 = FR.getBoundingClientRect(); cur.textContent = 'Try it'; cur.style.left = (e.clientX - fr0.left) + 'px'; cur.style.top = (e.clientY - fr0.top) + 'px'; cur.hidden = false; FR.style.cursor = 'pointer'; return; }
+  if (isUI(e.target) || V.sliding || V.turn) { cur.hidden = true; delete FR.dataset.zone; return; }
   const r = workRect(), fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
-  if (fx < 0 || fx > 1 || fy < 0 || fy > 1) { cur.hidden = true; FR.style.cursor = ''; return; }
-  const fr = FR.getBoundingClientRect();
-  cur.textContent = V.ended ? 'Next Project \u2192' : fx < .5 ? '\u2190 Back' : 'Next \u2192';
-  cur.style.left = (e.clientX - fr.left) + 'px'; cur.style.top = (e.clientY - fr.top) + 'px'; cur.hidden = false; FR.style.cursor = 'pointer';
+  if (fx < 0 || fx > 1 || fy < 0 || fy > 1) { cur.hidden = true; delete FR.dataset.zone; return; }
+  const z = zoneAt(fx), fr = FR.getBoundingClientRect(); FR.dataset.zone = z; V.lastPtr = [e.clientX, e.clientY];
+  cur.textContent = V.ended && z === 'next' ? 'next project' : z;
+  cur.style.left = (e.clientX - fr.left) + 'px'; cur.style.top = (e.clientY - fr.top) + 'px'; cur.hidden = false;
 }
-FR.addEventListener('pointerleave', () => { $('#cur').hidden = true; });
+FR.addEventListener('pointerleave', () => { $('#cur').hidden = true; delete FR.dataset.zone; });
 function mouseUp(e) {
   const m = G.mouse; G.mouse = null;
   if (!m || e.button !== 0 || isUI(e.target) || V.turn || Math.hypot(e.clientX - m.x, e.clientY - m.y) > 6) return;
-  if (inLive(e.clientX, e.clientY)) { dbg('click on the piece \u2192 your turn'); engage(V.hold ? 'hold' : 'click'); return; }
   const r = workRect(), fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
   if (fx < 0 || fx > 1 || fy < 0 || fy > 1) return;
-  dbg(`click ${fx < .5 ? 'left' : 'right'} half \u2192 ${fx < .5 ? 'back' : 'next'}`); act(fx < .5 ? -1 : 1, 'click');
+  if (fx >= .3 && fx <= .7) { dbg(`click centre \u2192 ${clock.playing ? 'pause' : 'play'}`); centreToggle('click'); mouseMove(e); return; }
+  dbg(`click ${fx < .3 ? 'left' : 'right'} \u2192 ${fx < .3 ? 'back' : 'next'}`); act(fx < .3 ? -1 : 1, 'click');
 }
 /* horizontal trackpad swipe = one project per flick; vertical wheel scrolls the page to the index */
 const WH = { acc: 0, last: 0, lastAbs: 0, trig: -1e9, tail: false, quiet: 0 };
@@ -1917,7 +1934,7 @@ document.addEventListener('keydown', e => {
   const k = e.key; firstGesture();
   if (k === 'Escape') { if (V.turn) { handback('esc'); return; } if (isPhone()) closeIndex(); if (RIGMODE) $('#rig').hidden = true; return; }
   if (V.turn && (k === ' ' || k === 'k')) { e.preventDefault(); return; }
-  if (k === ' ' || k === 'k') { if (!isPhone() && $('#frame').getBoundingClientRect().bottom < 0) return; e.preventDefault(); togglePlay('key'); }
+  if (k === ' ' || k === 'k') { if (!isPhone() && $('#frame').getBoundingClientRect().bottom < 0) return; e.preventDefault(); const was = clock.playing; togglePlay('key'); if (clock.playing !== was) flashGlyph(clock.playing ? 'play' : 'pause'); }
   else if (k === 'ArrowRight' && e.shiftKey) { e.preventDefault(); nextP('key'); }
   else if (k === 'ArrowLeft' && e.shiftKey) { e.preventDefault(); prevP('key'); }
   else if (k === 'ArrowRight' || k === 'l') { e.preventDefault(); act(1, 'key'); }
@@ -2174,7 +2191,7 @@ applyLayout();
 loadReel(0);
 buildIndex();
 setTimeout(() => buildSprites(), 700);
-setTimeout(showHints, 1200);
+setTimeout(showHints, 700);
 /* draw every placeholder plate in idle time, nearest projects first, so switching never stalls */
 (function warmPlates() {
   const names = []; const order = SITE.reels.map((r, i) => i).sort((a, b) => Math.abs(a - SITE.i) - Math.abs(b - SITE.i));

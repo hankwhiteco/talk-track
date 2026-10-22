@@ -8,9 +8,9 @@ Live: https://hankwhiteco.github.io/talk-track/
 
 ## Getting around
 
-- **Phone:** tap the right of the work to go to the next beat, tap the left third to go back, and hold to pause. Swipe sideways for the next project and swipe down for the index.
-- **Desktop:** click the right or left half of the work, or use the arrow keys. Shift+arrows change project. Scroll down for the index.
-- **The interactive piece (Sphere Studio):** it behaves like a picture until you tap "Try it". "Back to the talk" or Done hands it back.
+- **Phone:** tap the right of the work for the next beat, the left to go back, and the centre to pause or play. Holding pauses while you hold. Swipe sideways for the next project and swipe down for the index.
+- **Desktop:** the cursor shows what a click does. Left goes back, the centre pauses or plays, and right goes forward. Click a neighbouring project at the page edge to go there. Arrow keys move by beat, Shift+arrows change project, and space pauses. Scroll down for the index.
+- **The interactive piece (Sphere Studio):** it behaves like a picture until you tap the "Try it" tag. "Back to the talk", Done or Esc hands it back.
 
 ## Link tokens
 
@@ -18,7 +18,7 @@ Add tokens after `#`, joined with dots, or use them as `?` parameters.
 
 | Token | What it does |
 | --- | --- |
-| `#column` (default), `#over` | Desktop layout: speaker in a column, or cut out over the work |
+| `#over` (default), `#column` | Desktop layout: speaker cut out over the work, or in a column |
 | `#debug` | Shows which gesture registered, plus the live piece's state |
 | `#inpage` | Runs the interactive piece in the page instead of its own frame |
 | `#rig`, or press `` ` `` | Opens the tools panel |
