@@ -1755,7 +1755,7 @@ function dbgLive() { if (DEBUG) dbg('live: ' + liveDesc()); }
 /* ---------- input: Stories gestures on touch, a designed mapping for the mouse ---------- */
 const FR = $('#frame');
 const G = { pts: new Map(), mode: null, holdTimer: 0, pinch: null };
-const isUI = t => !!(t && t.closest && t.closest('button, a, input, select, textarea, label, [data-ui], .contact'));
+const isUI = t => !!(t && t.closest && t.closest('button, a, input, select, textarea, label, [data-ui]'));
 const DBG = [];
 function dbg(s) {
   if (!DEBUG) return;
