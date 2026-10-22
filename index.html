@@ -640,7 +640,7 @@ const BR = {
   nf: { word: 'NORTHFIELD MILL', paper: '#f2ebdb', ink: '#2b2418', acc: '#c9a227', mid: '#6f7d4f', sand: '#e0cfa8', font: 'Rockwell,"Roboto Slab",Georgia,serif' },
   sg: { word: 'SIGNAL', paper: '#101014', ink: '#f2f0ea', acc: '#5b5bff', mid: '#24242c', sand: '#ff4d6d', font: '"Archivo",Arial,sans-serif' },
   ss: { word: 'SPHERE STUDIO', paper: '#121416', ink: '#ece7df', acc: '#f2661d', mid: '#2c3136', sand: '#c9c3b8', font: '"DM Mono",monospace' },
-  hw: { word: 'HANK WHITE', paper: '#0e0d0c', ink: '#ece7df', acc: '#f2661d', mid: '#2a2723', sand: '#968f84', font: '"Archivo",Arial,sans-serif' }
+  hw: { word: 'HANK', paper: '#0e0d0c', ink: '#ece7df', acc: '#f2661d', mid: '#2a2723', sand: '#968f84', font: '"Archivo",Arial,sans-serif' }
 };
 const brandOf = n => BR[String(n).split('-')[0]] ? String(n).split('-')[0] : 'hl';
 const PH = new Map();
@@ -703,7 +703,7 @@ function drawPlate(name) {
       bagAt(W * .66, H * .38, W * .2, H * .44, B.paper);
     } else if (b === 'sg') { for (let k = 0; k < 7; k++) { g.save(); g.globalAlpha = .25 + k * .1; drawMark('sg', g, W / 2, H * (.2 + k * .1), W * (.4 + k * .06), k % 2 ? B.acc : B.sand, B.paper); g.restore(); } txt('SIGNAL', W * .06, H * .92, 120, B.ink, 900); }
     else if (b === 'ss') { drawSphere(g, W * .5, H * .5, H * .4, .9, B.ink, 2); txt('f = 4', W * .06, H * .92, 34, B.sand, 500, '"DM Mono",monospace'); }
-    else { grid('#3a362f', 80, .5); txt('HANK', W / 2, H * .44, 210, B.ink, 900, B.font, 'center'); txt('WHITE', W / 2, H * .64, 210, B.ink, 900, B.font, 'center'); txt('design technologist', W / 2, H * .74, 40, B.acc, 500, '"DM Mono",monospace', 'center'); }
+    else { grid('#3a362f', 80, .5); txt('HANK', W / 2, H * .6, 300, B.ink, 900, B.font, 'center'); txt('designer', W / 2, H * .72, 44, B.acc, 500, '"DM Mono",monospace', 'center'); }
   } else if (/old/.test(n)) {
     if (/wall/.test(n)) for (let i = 0; i < 6; i++) oldLogo(g, (i % 3 + .5) * W / 3, (Math.floor(i / 3) + .5) * H / 2, H * .32, hash(n + i));
     else if (b === 'nf') { bagAt(W * .3, H * .12, W * .4, H * .76, '#d8c9a3'); fill('rgba(242,235,219,.55)', 0, 0, W, H); txt('1971 bag', W * .06, H * .1, 38, B.ink, 500, '"DM Mono",monospace'); }
@@ -769,11 +769,11 @@ function drawLoop(c, t) {
 }
 
 /* ---------- the site: an intro, four placeholder projects, a closing contact. Scripts are placeholders. ---------- */
-const CONTACT = { email: 'hello@example.com', instagram: '@yourhandle', based: 'Your city', role: 'Design technologist', note: 'Placeholder details. Real ones go in before testing with strangers.' };
+const CONTACT = { email: 'hello@example.com', instagram: '@yourhandle', based: 'Your city', role: 'Designer', note: 'Placeholder details. Real ones go in before testing with strangers.' };
 const SITE_SRC = [
-  { id: 'intro', key: '#b9b2a5', kind: 'intro', num: '00', title: 'Hank White', disc: 'Design technologist', cover: 'hw-hero', dur: 15.2, end: 14.6,
+  { id: 'intro', key: '#b9b2a5', kind: 'intro', num: '00', title: 'Hank', disc: 'Designer', cover: 'hw-hero', dur: 15.2, end: 14.6,
     labels: ['hello', 'how this works'], beats: [0, 7.2],
-    caps: [[0, "Hi, I'm Hank."], [1.6, "I'm a design technologist."], [3.6, 'I design brands, and I build the tools that make them.'], [7.2, 'Four projects, about half a minute each.'], [10.0, "Tap or click ahead whenever you like. I'll keep up."]],
+    caps: [[0, "Hi, I'm Hank."], [1.6, "I'm a designer."], [3.6, 'I design brands, and I build the tools that make them.'], [7.2, 'Four projects, about half a minute each.'], [10.0, "Tap or click ahead whenever you like. I'll keep up."]],
     cues: [[0, 'show', 'hw-hero'], [3.6, 'stack', 'ss-mark'], [4.4, 'stack', 'sg-mark'], [5.2, 'stack', 'hl-mark'], [6.0, 'stack', 'nf-mark'], [7.2, 'show', 'hw-index'], [10.0, 'zoom', '', '0.75 0.72 1.5']] },
   { id: 'sphere', key: '#3d4348', num: '01', title: 'Sphere Studio', disc: 'Design tool', client: 'Self-initiated', year: '2026', cover: 'ss-hero', dur: 24.4, end: 23.6,
     labels: ['the tool', 'frequency', 'your turn', 'export'], beats: [0, 6.8, 14.2, 17.6],
@@ -942,7 +942,8 @@ const DEBUG = TOK.has('debug');
 let P = SITE.reels[0];                          // the reel on screen
 const MEDIA = new Map();                        // file name -> { url, kind }
 let TALK = null, IDLEM = null;                  // the reel's talker video and idle clip
-const S = Object.assign({ nametag: 'Henry - Creative Director', rate: 1, edit: false, key: 'green', kth: .2, ksoft: .1, kspill: .6, tsize: 100, autoResume: 4, idleFrom: 0, idleLen: 4 }, store.get('tw.settings', {}));
+const S = Object.assign({ nametag: 'Hank - Designer', rate: 1, edit: false, key: 'green', kth: .2, ksoft: .1, kspill: .6, tsize: 100, autoResume: 4, idleFrom: 0, idleLen: 4 }, store.get('tw.settings', {}));
+if (S.nametag === 'Henry - Creative Director') S.nametag = 'Hank - Designer';   // the old default, saved by earlier visits
 const saveSettings = () => store.set('tw.settings', S);
 let muted = true;
 const V = { cueIdx: -2, capIdx: -2, wordIdx: -2, lineIdx: -2, preB: -1, applyToken: 0, decodeMs: 0, workT: 0, lastVoiceBeat: -1, workOffset: 0, keepTarget: -1,
